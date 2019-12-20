@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HomeControl.Finances.Domain\HomeControl.Finances.Domain.csproj" />
+    <ProjectReference Include="..\HomeControl.Finances.Infrastructure\HomeControl.Finances.Infrastructure.csproj" />
+    <ProjectReference Include="..\HomeControl.Finances.Util\HomeControl.Finances.Util.csproj" />
+    <ProjectReference Include="..\HomeControl.Identity.Web\HomeControl.Identity.Web.csproj" />
+    <ProjectReference Include="..\HomeControl.Identity\HomeControl.Identity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="v1\Infrastructure\Controllers\" />
+  </ItemGroup>
+
+</Project>
