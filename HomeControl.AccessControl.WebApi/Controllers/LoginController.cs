@@ -1,4 +1,5 @@
 ﻿using HomeControl.AccessControl.Domain.Users;
+using HomeControl.AccessControl.WebApi.Infrastructure.Settings;
 using HomeControl.AccessControl.WebApi.Requests.Login;
 using HomeControl.Identity.Jwt;
 using Microsoft.AspNetCore.Cors;
@@ -9,8 +10,7 @@ namespace HomeControl.AccessControl.WebApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/v1/Login")]
-    [EnableCors("AllowEverything")]
-    public class LoginController : Controller
+    public class LoginController : ControllerBase
     {
         private readonly IUserQueries _queries;
         private readonly IJwtHandler _jwtHandler;

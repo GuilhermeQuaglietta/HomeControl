@@ -5,12 +5,15 @@ using HomeControl.AccessControl.Domain.Users;
 using HomeControl.AccessControl.Infrastructure.Queries;
 using HomeControl.AccessControl.Infrastructure.Repository;
 using HomeControl.AccessControl.Infrastructure.Seedwork;
+using HomeControl.AccessControl.WebApi.Infrastructure.Settings;
 using HomeControl.AccessControl.WebApi.Infrastructure.Validators;
 using HomeControl.AccessControl.WebApi.Requests.Login;
 using HomeControl.AccessControl.WebApi.Requests.Users;
 using HomeControl.Identity.Jwt;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,18 +42,27 @@ namespace HomeControl.AccessControl.WebApi
 
         private void _configureMvc(IServiceCollection services)
         {
-            services.AddCors(opt =>
+            //CORS
+            CorsSettings corsSettings = Configuration.GetSection(CorsSettings.OptionsName).Get<CorsSettings>();
+            services.AddCors(options =>
             {
-                opt.AddPolicy("AllowEverything", builder =>
+                options.AddPolicy(CorsSettings.PolicyName, builder =>
                 {
-                    builder.AllowAnyOrigin();
-                    builder.AllowAnyHeader();
-                    builder.AllowAnyMethod();
+                    builder.WithOrigins(corsSettings.AllowedOrigins);
+                    builder.WithMethods(corsSettings.AllowedMethods);
+                    builder.WithHeaders(corsSettings.AllowedHeaders);
+                    builder.AllowCredentials();
                 });
             });
+
             services.AddMvc().AddFluentValidation(options =>
             {
                 options.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+            });
+            
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new CorsAuthorizationFilterFactory(CorsSettings.PolicyName));
             });
         }
 
@@ -77,6 +89,8 @@ namespace HomeControl.AccessControl.WebApi
             services.AddTransient<IValidator<UserPutRequest>, UserPutRequestValidator>();
             services.AddTransient<IValidator<UserPostRequest>, UserPostRequestValidator>();
             services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
+
+
         }
 
         private void _configureUtilities(IServiceCollection services)
@@ -91,8 +105,9 @@ namespace HomeControl.AccessControl.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseCors("AllowEverything");
+            
+            app.UseHttpsRedirection();
+            app.UseCors(CorsSettings.PolicyName);
             app.UseMvc();
         }
     }

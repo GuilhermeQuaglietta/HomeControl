@@ -10,23 +10,5 @@ namespace HomeControl.AccessControl.Domain.Users
         public string Password { get; set; }
         public string Email { get; set; }
 
-        //public DataValidationCollection Validate()
-        //{
-        //    DataValidationCollection validations = new DataValidationCollection();
-
-        //    if (string.IsNullOrWhiteSpace(Name))
-        //        validations.AddError("Name", "Name is required");
-
-        //    if (string.IsNullOrWhiteSpace(UserName))
-        //        validations.AddError("UserName", "userName is required");
-
-        //    if (string.IsNullOrWhiteSpace(Password))
-        //        validations.AddError("Password", "Password is required");
-
-        //    if (string.IsNullOrWhiteSpace(Email))
-        //        validations.AddError("Email", "Email is required");
-
-        //    return validations;
-        //}
     }
 }

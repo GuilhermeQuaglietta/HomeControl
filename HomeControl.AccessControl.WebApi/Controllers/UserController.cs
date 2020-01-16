@@ -9,8 +9,7 @@ namespace HomeControl.AccessControl.WebApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
-    [EnableCors("AllowEverything")]
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
         private readonly IUserRepository _repository;
         private readonly IMapper _mapper;
