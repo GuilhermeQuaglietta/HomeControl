@@ -14,10 +14,11 @@ namespace HomeControl.AccessControl.Infrastructure.Configuration
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Email).IsRequired();
             builder.Property(x => x.Password).IsRequired();
-            builder.Property(x => x.UserName).IsRequired();
+            builder.Property(x => x.RecoveryKey);
+            builder.Property(x => x.RecoveryExpiration);
+            builder.Property(x => x.RecoveryAnswer);
 
             builder.HasIndex(x => x.Email).IsUnique();
-            builder.HasIndex(x => x.UserName).IsUnique();
         }
     }
 }

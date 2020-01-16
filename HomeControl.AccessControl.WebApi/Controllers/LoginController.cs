@@ -28,12 +28,12 @@ namespace HomeControl.AccessControl.WebApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var authenticated = _queries.LoginUser(request.UserName, request.Password);
+            var authenticated = _queries.LoginUser(request.Email, request.Password);
 
             if (!authenticated)
                 return BadRequest("Login ou senha inválidos.");
 
-            var token = _jwtHandler.GenerateToken(_tokenConfiguration.Value, request.UserName);
+            var token = _jwtHandler.GenerateToken(_tokenConfiguration.Value, request.Email);
 
             return Ok(token);
         }

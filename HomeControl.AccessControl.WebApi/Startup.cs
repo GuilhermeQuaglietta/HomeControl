@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using HomeControl.AccessControl.Domain.Seedwork;
 using HomeControl.AccessControl.Domain.Users;
 using HomeControl.AccessControl.Infrastructure.Queries;
 using HomeControl.AccessControl.Infrastructure.Repository;
@@ -8,6 +9,7 @@ using HomeControl.AccessControl.Infrastructure.Seedwork;
 using HomeControl.AccessControl.WebApi.Infrastructure.Settings;
 using HomeControl.AccessControl.WebApi.Infrastructure.Validators;
 using HomeControl.AccessControl.WebApi.Requests.Login;
+using HomeControl.AccessControl.WebApi.Requests.Recovery;
 using HomeControl.AccessControl.WebApi.Requests.Users;
 using HomeControl.Identity.Jwt;
 using Microsoft.AspNetCore.Builder;
@@ -55,17 +57,27 @@ namespace HomeControl.AccessControl.WebApi
                 });
             });
 
-            services.AddMvc().AddFluentValidation(options =>
-            {
-                options.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-            });
-            
+            var mvcBuilder = services.AddMvc();
+            _configureFluentValidations(services, mvcBuilder);
+
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new CorsAuthorizationFilterFactory(CorsSettings.PolicyName));
             });
         }
 
+        private void _configureFluentValidations(IServiceCollection services, IMvcBuilder builder)
+        {
+            builder.AddFluentValidation(options =>
+             {
+                 options.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+             });
+
+            services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
+            services.AddTransient<IValidator<UserPostRequest>, UserPostRequestValidator>();
+            services.AddTransient<IValidator<UserPutRequest>, UserPutRequestValidator>();
+            services.AddTransient<IValidator<RecoveryPasswordChangeRequest>, RecoveryPasswordChangeRequestValidator>();
+        }
         private void _configureConnections(IServiceCollection services)
         {
             services.AddDbContext<AccessControlDbContext>(
@@ -80,6 +92,8 @@ namespace HomeControl.AccessControl.WebApi
             //Jwt
             services.AddTransient<IJwtHandler, JwtSymmetricHandler>();
             services.Configure<JwtConfiguration>(Configuration.GetSection("JwtConfiguration"));
+            services.Configure<LoginSettings>(Configuration.GetSection("LoginSettings"));
+
 
             //Infrastructure
             services.AddTransient<IUserRepository, UserRepository>();
@@ -89,8 +103,6 @@ namespace HomeControl.AccessControl.WebApi
             services.AddTransient<IValidator<UserPutRequest>, UserPutRequestValidator>();
             services.AddTransient<IValidator<UserPostRequest>, UserPostRequestValidator>();
             services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
-
-
         }
 
         private void _configureUtilities(IServiceCollection services)
@@ -105,7 +117,7 @@ namespace HomeControl.AccessControl.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseHttpsRedirection();
             app.UseCors(CorsSettings.PolicyName);
             app.UseMvc();

@@ -7,7 +7,7 @@ namespace HomeControl.AccessControl.WebApi.Infrastructure.Validators
     {
         public LoginRequestValidator()
         {
-            RuleFor(x => x.UserName).NotNull().NotEmpty();
+            RuleFor(x => x.Email).NotNull().NotEmpty();
             RuleFor(x => x.Password).NotNull().NotEmpty();
         }
     }

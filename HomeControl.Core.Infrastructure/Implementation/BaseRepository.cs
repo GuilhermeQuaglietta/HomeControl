@@ -30,7 +30,7 @@ namespace HomeControl.Core.Infrastructure.Implementation
             return dbContext.Find<TEntity>(id);
         }
 
-        public IEnumerable<TEntity> GetDuplicates(TEntity entity)
+        public virtual IEnumerable<TEntity> GetDuplicates(TEntity entity)
         {
             return dbContext.Set<TEntity>().Where(x => x.GetId() == entity.GetId());
         }

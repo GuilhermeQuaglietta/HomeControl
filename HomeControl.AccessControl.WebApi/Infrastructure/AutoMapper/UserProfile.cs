@@ -2,7 +2,7 @@
 using HomeControl.AccessControl.Domain.Users;
 using HomeControl.AccessControl.WebApi.Requests.Users;
 
-namespace HomeControl.AccessControl.WebApi.Infrastructure.Mappers
+namespace HomeControl.AccessControl.WebApi.Infrastructure.AutoMapper
 {
     public class UserProfile : Profile
     {
