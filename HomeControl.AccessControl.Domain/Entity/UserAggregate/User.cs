@@ -16,5 +16,10 @@ namespace HomeControl.AccessControl.Domain.Users
         public string RecoveryKey { get; set; }
         public DateTime? RecoveryExpiration { get; set; }
         public string RecoveryAnswer { get; set; }
+
+        public bool RecoveryKeyExpired()
+        {
+            return DateTime.Now > RecoveryExpiration || RecoveryExpiration == null;
+        }
     }
 }

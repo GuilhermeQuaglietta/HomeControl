@@ -33,7 +33,6 @@ namespace HomeControl.AccessControl.Infrastructure.Repository
             user.RecoveryExpiration = DateTime.Now.AddSeconds(expirationSeconds);
 
             Update(user);
-
             return user.RecoveryKey;
         }
 
@@ -43,7 +42,6 @@ namespace HomeControl.AccessControl.Infrastructure.Repository
             user.Password = password;
             user.RecoveryKey = null;
             user.RecoveryExpiration = null;
-
             Update(user);
         }
     }
