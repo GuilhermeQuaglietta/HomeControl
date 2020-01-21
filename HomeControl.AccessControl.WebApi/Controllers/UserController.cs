@@ -23,17 +23,17 @@ namespace HomeControl.AccessControl.WebApi.Controllers
         [HttpGet]
         [Route("{id}")]
         public IActionResult Get(int id)
-        {
+        {   
             var user = _repository.Get(id);
             user.Password = string.Empty;
             return Ok(user);
         }
 
-        [HttpPut]
-        public IActionResult Put([FromBody]UserPutRequest request)
+        [HttpPost]
+        public IActionResult Post([FromBody]UserPostRequest request)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return UnprocessableEntity(ModelState);
 
             var user = _mapper.Map<User>(request);
 
@@ -42,16 +42,16 @@ namespace HomeControl.AccessControl.WebApi.Controllers
                 return BadRequest("Email e/ou login já foram utilizados.");
 
             _repository.Insert(user);
-            var response = _mapper.Map<UserPutResponse>(user);
+            var response = _mapper.Map<UserPostResponse>(user);
             return Ok(response);
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("{id}")]
-        public IActionResult Post(int id, [FromBody]UserPostRequest request)
+        public IActionResult Put(int id, [FromBody]UserPutRequest request)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return UnprocessableEntity(ModelState);
 
             var user = _repository.Get(id);
             if (user == null)

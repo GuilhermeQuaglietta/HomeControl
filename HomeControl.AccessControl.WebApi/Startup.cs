@@ -74,8 +74,8 @@ namespace HomeControl.AccessControl.WebApi
              });
 
             services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
-            services.AddTransient<IValidator<UserPostRequest>, UserPostRequestValidator>();
             services.AddTransient<IValidator<UserPutRequest>, UserPutRequestValidator>();
+            services.AddTransient<IValidator<UserPostRequest>, UserPostRequestValidator>();
             services.AddTransient<IValidator<RecoveryPasswordChangeRequest>, RecoveryPasswordChangeRequestValidator>();
         }
         private void _configureConnections(IServiceCollection services)
@@ -100,8 +100,8 @@ namespace HomeControl.AccessControl.WebApi
             services.AddTransient<IUserQueries, UserQueries>();
 
             //WebApi - Validators
-            services.AddTransient<IValidator<UserPutRequest>, UserPutRequestValidator>();
             services.AddTransient<IValidator<UserPostRequest>, UserPostRequestValidator>();
+            services.AddTransient<IValidator<UserPutRequest>, UserPutRequestValidator>();
             services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
         }
 

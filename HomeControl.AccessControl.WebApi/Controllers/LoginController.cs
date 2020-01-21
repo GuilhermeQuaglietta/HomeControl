@@ -37,7 +37,7 @@ namespace HomeControl.AccessControl.WebApi.Controllers
         public IActionResult Post([FromBody]LoginRequest request)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return UnprocessableEntity(ModelState);
 
             var authenticated = _queries.LoginUser(request.Email, request.Password);
 
@@ -55,7 +55,7 @@ namespace HomeControl.AccessControl.WebApi.Controllers
         public IActionResult SendRecoveryEmail([FromBody]string email)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return UnprocessableEntity(ModelState);
 
             var user = _queries.FindByEmail(email);
 

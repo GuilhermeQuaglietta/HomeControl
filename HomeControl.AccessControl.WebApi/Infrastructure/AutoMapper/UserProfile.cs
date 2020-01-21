@@ -8,9 +8,9 @@ namespace HomeControl.AccessControl.WebApi.Infrastructure.AutoMapper
     {
         public UserProfile()
         {
-            CreateMap<UserPutRequest, User>();
             CreateMap<UserPostRequest, User>();
-            CreateMap<User, UserPutResponse>();
+            CreateMap<UserPutRequest, User>();
+            CreateMap<User, UserPostResponse>();
         }
     }
 }

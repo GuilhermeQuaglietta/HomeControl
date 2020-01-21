@@ -1,6 +1,6 @@
 ﻿namespace HomeControl.AccessControl.WebApi.Requests.Users
 {
-    public class UserPutResponse
+    public class UserPostResponse
     {
         public int Id { get; set; }
     }
