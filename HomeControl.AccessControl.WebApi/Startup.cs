@@ -9,7 +9,7 @@ using HomeControl.AccessControl.Infrastructure.Seedwork;
 using HomeControl.AccessControl.WebApi.Infrastructure.Settings;
 using HomeControl.AccessControl.WebApi.Infrastructure.Validators;
 using HomeControl.AccessControl.WebApi.Requests.Login;
-using HomeControl.AccessControl.WebApi.Requests.Recovery;
+using HomeControl.AccessControl.WebApi.Requests.Login;
 using HomeControl.AccessControl.WebApi.Requests.Users;
 using HomeControl.Identity.Jwt;
 using Microsoft.AspNetCore.Builder;

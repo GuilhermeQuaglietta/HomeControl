@@ -71,7 +71,7 @@ namespace HomeControl.Identity.UnitTest.Jwt
             {
                 Audience = "HomeControlServices",
                 Issuer = "HomeControl",
-                MinutesToExpire = 3600,
+                HoursToExpire = 3600,
                 SecretKey = "c711e5080f2b58260fe19741a7913e8301c1128ec8e80b8009406e5047e6e1ef",
             };
         }

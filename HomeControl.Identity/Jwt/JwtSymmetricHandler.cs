@@ -34,7 +34,7 @@ namespace HomeControl.Identity.Jwt
                 Subject = identity,
                 Issuer = configuration.Issuer,
                 Audience = configuration.Audience,
-                Expires = now.AddMinutes(configuration.MinutesToExpire),
+                Expires = now.AddHours(configuration.HoursToExpire),
                 NotBefore = now,
                 IssuedAt = now,
                 SigningCredentials = credentials,

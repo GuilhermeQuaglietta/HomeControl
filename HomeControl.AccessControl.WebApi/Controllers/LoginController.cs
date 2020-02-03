@@ -2,7 +2,6 @@
 using HomeControl.AccessControl.Domain.Users;
 using HomeControl.AccessControl.WebApi.Infrastructure.Settings;
 using HomeControl.AccessControl.WebApi.Requests.Login;
-using HomeControl.AccessControl.WebApi.Requests.Recovery;
 using HomeControl.Identity.Jwt;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -59,13 +58,16 @@ namespace HomeControl.AccessControl.WebApi.Controllers
 
             var user = _queries.FindByEmail(email);
 
-            if (user == null || !user.RecoveryKeyExpired())
+            //if (user == null || !user.RecoveryKeyExpired())
+            //    return Ok();
+
+            if (user == null)
                 return Ok();
 
             //TODO adicionar log de tentativa de ataque
 
-            _ = _repository.GenerateRecoveryKey(user.UserId, _loginSettings.RecoverExpirationSeconds);
-            return Ok();
+            var code = _repository.GenerateRecoveryKey(user.UserId, _loginSettings.RecoverExpirationSeconds);
+            return Ok(code);
         }
 
         [HttpGet]

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HomeControl.AccessControl.WebApi.Requests.Recovery
+namespace HomeControl.AccessControl.WebApi.Requests.Login
 {
     public class RecoveryPasswordChangeRequest
     {
