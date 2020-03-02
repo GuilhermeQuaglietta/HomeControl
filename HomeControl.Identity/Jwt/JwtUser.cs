@@ -5,20 +5,23 @@ namespace HomeControl.Identity.Jwt
 {
     public class JwtUser
     {
-        public static JwtIdentity Current { get; private set; }
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public string Email { get; private set; }
 
-        protected JwtUser()
-        {
+        public ClaimsPrincipal Claims { get; private set; }
+        public string Token { get; private set; }
+        public SecurityToken SecurityToken { get; private set; }
 
-        }
+        public JwtUser(ClaimsPrincipal claims, string token, SecurityToken securityToken)
+        {
+            Claims = claims;
+            Token = token;
+            SecurityToken = securityToken;
 
-        public static void SetIdentity(JwtIdentity identity)
-        {
-            Current = identity;
-        }
-        public static void SetIdentity(ClaimsPrincipal claims, string token, SecurityToken securityToken)
-        {
-            Current = new JwtIdentity(claims, token, securityToken);
+            Id = int.Parse(claims.FindFirst(JwtClaimTypes.Id).Value);
+            Name = claims.FindFirst(JwtClaimTypes.Name).Value;
+            Email = claims.FindFirst(JwtClaimTypes.Email).Value;
         }
     }
 }

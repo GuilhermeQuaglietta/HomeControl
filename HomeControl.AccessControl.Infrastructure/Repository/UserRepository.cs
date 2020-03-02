@@ -21,7 +21,7 @@ namespace HomeControl.AccessControl.Infrastructure.Repository
         public override IEnumerable<User> GetDuplicates(User entity)
         {
             return _dbContext.Users.Where(x => x.UserId != entity.UserId &&
-                x.Email.Equals(entity.Email, StringComparison.CurrentCultureIgnoreCase))
+                x.Email == entity.Email)
                 .AsNoTracking().
                 ToList();
         }

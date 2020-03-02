@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HomeControl.Finances.WebApi.Infrastructure.Validators
+﻿namespace HomeControl.Finances.WebApi.Infrastructure.Validators
 {
     public static class PersistenceValidationTypes
     {

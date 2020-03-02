@@ -2,7 +2,7 @@
 {
     public interface IUserQueries
     {
-        bool LoginUser(string userName, string password);
+        User LoginUser(string email, string password);
         User FindByEmail(string email);
         User FindByRecoveryKey(string recoveryKey);
     }

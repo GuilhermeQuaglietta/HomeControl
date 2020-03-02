@@ -1,9 +1,5 @@
 ﻿using FluentValidation;
 using HomeControl.AccessControl.WebApi.Requests.Login;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HomeControl.AccessControl.WebApi.Infrastructure.Validators
 {

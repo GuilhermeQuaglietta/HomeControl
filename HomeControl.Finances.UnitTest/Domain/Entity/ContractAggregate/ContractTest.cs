@@ -16,7 +16,7 @@ namespace HomeControl.Finances.UnitTest.Domain.Entity.ContractAggregate
             Contract contract = new Contract();
 
             Assert.AreEqual(0, contract.Id);
-            Assert.AreEqual(0, contract.OwnerId);
+            Assert.AreEqual(0, contract.ownerId);
             Assert.AreEqual(null, contract.StoreId);
             Assert.AreEqual(null, contract.AccountId);
             Assert.AreEqual(null, contract.CardId);
@@ -41,7 +41,7 @@ namespace HomeControl.Finances.UnitTest.Domain.Entity.ContractAggregate
             Contract contract = new Contract(1);
 
             Assert.AreEqual(1, contract.Id);
-            Assert.AreEqual(0, contract.OwnerId);
+            Assert.AreEqual(0, contract.ownerId);
             Assert.AreEqual(null, contract.StoreId);
             Assert.AreEqual(null, contract.AccountId);
             Assert.AreEqual(null, contract.CardId);
@@ -136,7 +136,7 @@ namespace HomeControl.Finances.UnitTest.Domain.Entity.ContractAggregate
         {
             Contract c = new Contract();
             c.SetOwner(1);
-            Assert.AreEqual(1, c.OwnerId);
+            Assert.AreEqual(1, c.ownerId);
         }
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]

@@ -10,7 +10,7 @@ namespace HomeControl.Finances.Infrastructure.Persistence.AccountData.Configurat
         {
             builder.ToTable("Account");
             builder.HasKey(x => x.AccountId);
-            builder.Property(x => x.AccountId).UseSqlServerIdentityColumn();
+            builder.Property(x => x.AccountId).UseIdentityColumn();
         }
     }
 }

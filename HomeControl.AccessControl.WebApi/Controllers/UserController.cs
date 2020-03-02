@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using HomeControl.AccessControl.Domain.Users;
 using HomeControl.AccessControl.WebApi.Requests.Users;
-using Microsoft.AspNetCore.Cors;
+using HomeControl.Finances.WebApi.v1.Infrastructure.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
@@ -9,7 +9,7 @@ namespace HomeControl.AccessControl.WebApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         private readonly IUserRepository _repository;
         private readonly IMapper _mapper;
@@ -22,9 +22,10 @@ namespace HomeControl.AccessControl.WebApi.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public IActionResult Get(int id)
-        {   
-            var user = _repository.Get(id);
+        public IActionResult Get()
+        {
+            var loggedUser = GetUser();
+            var user = _repository.Find(loggedUser.Id);
             user.Password = string.Empty;
             return Ok(user);
         }
@@ -53,7 +54,9 @@ namespace HomeControl.AccessControl.WebApi.Controllers
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
-            var user = _repository.Get(id);
+            var loggedUser = GetUser();
+            var user = _repository.Find(loggedUser.Id);
+
             if (user == null)
                 return BadRequest("Usuário não encontrado.");
 
@@ -67,16 +70,16 @@ namespace HomeControl.AccessControl.WebApi.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
-        public IActionResult Delete(int id)
-        {
-            var user = _repository.Get(id);
+        //[HttpDelete]
+        //public IActionResult Delete(int id)
+        //{
+        //    var user = _repository.Get(id);
 
-            if (user == null)
-                return BadRequest("User not found");
+        //    if (user == null)
+        //        return BadRequest("User not found");
 
-            _repository.Delete(user);
-            return Ok("User deleted");
-        }
+        //    _repository.Delete(user);
+        //    return Ok("User deleted");
+        //}
     }
 }

@@ -1,9 +1,7 @@
 ﻿using HomeControl.AccessControl.Domain.Seedwork;
 using HomeControl.AccessControl.Domain.Users;
-using HomeControl.AccessControl.WebApi.Infrastructure.Settings;
 using HomeControl.AccessControl.WebApi.Requests.Login;
 using HomeControl.Identity.Jwt;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Net;
@@ -17,37 +15,37 @@ namespace HomeControl.AccessControl.WebApi.Controllers
         private readonly IUserQueries _queries;
         private readonly IUserRepository _repository;
         private readonly IJwtHandler _jwtHandler;
-        private readonly JwtConfiguration _tokenConfiguration;
+        private readonly IJwtConfiguration _tokenConfiguration;
         private readonly LoginSettings _loginSettings;
 
         public LoginController(IUserQueries queries,
             IUserRepository repository,
             IJwtHandler jwtHandler,
-            IOptions<JwtConfiguration> tokenConfiguration,
-            IOptions<LoginSettings> settings)
+            IJwtConfiguration tokenConfiguration,
+            LoginSettings settings)
         {
             _queries = queries;
             _repository = repository;
             _jwtHandler = jwtHandler;
-            _tokenConfiguration = tokenConfiguration.Value;
-            _loginSettings = settings.Value;
+            _tokenConfiguration = tokenConfiguration;
+            _loginSettings = settings;
         }
 
-        public IActionResult Post([FromBody]LoginRequest request)
+        [HttpPost]
+        public IActionResult Login([FromBody]LoginRequest request)
         {
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
-            var authenticated = _queries.LoginUser(request.Email, request.Password);
+            var user = _queries.LoginUser(request.Email, request.Password);
 
-            if (!authenticated)
+            if (user == null)
                 return Unauthorized();
 
-            var token = _jwtHandler.GenerateToken(_tokenConfiguration, request.Email);
+            var token = _jwtHandler.GenerateToken(_tokenConfiguration, user.UserId, user.Name, user.Email);
 
             return Ok(token);
         }
-
 
         [HttpPost]
         [Route("recover")]
@@ -58,16 +56,12 @@ namespace HomeControl.AccessControl.WebApi.Controllers
 
             var user = _queries.FindByEmail(email);
 
-            //if (user == null || !user.RecoveryKeyExpired())
-            //    return Ok();
-
-            if (user == null)
+            if (user == null || !user.RecoveryKeyExpired())
                 return Ok();
 
             //TODO adicionar log de tentativa de ataque
-
-            var code = _repository.GenerateRecoveryKey(user.UserId, _loginSettings.RecoverExpirationSeconds);
-            return Ok(code);
+            _ = _repository.GenerateRecoveryKey(user.UserId, _loginSettings.RecoverExpirationSeconds);
+            return Ok();
         }
 
         [HttpGet]
@@ -95,7 +89,7 @@ namespace HomeControl.AccessControl.WebApi.Controllers
             var user = _queries.FindByRecoveryKey(request.Recoverykey);
 
             if (user == null)
-                return BadRequest("Recovery key expired");
+                return new StatusCodeResult((int)HttpStatusCode.Gone);
 
             _repository.ChangePassword(user.UserId, request.NewPassword);
 

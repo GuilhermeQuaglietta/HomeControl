@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HomeControl.Finances.Infrastructure.Persistence
 {
-    public class ProductTypeConfiguration : IEntityTypeConfiguration<ProductTypeEntity>
+    public class ProductIEntityTypeConfiguration : IEntityTypeConfiguration<ProductTypeEntity>
     {
         public void Configure(EntityTypeBuilder<ProductTypeEntity> builder)
         {

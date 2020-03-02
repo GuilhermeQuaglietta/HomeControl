@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using HomeControl.Finances.Domain.Entity.AccountAggregate;
-using HomeControl.Finances.Infrastructure.Persistence.AccountData;
 using HomeControl.Finances.Infrastructure.Persistence.AccountData.Entity;
 
 namespace HomeControl.Finances.WebApi.Infrastructure.MapperProfiles

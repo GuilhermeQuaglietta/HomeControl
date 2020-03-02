@@ -14,20 +14,20 @@ namespace HomeControl.AccessControl.Infrastructure.Queries
             _dbContext = dbContext;
         }
 
-        public bool LoginUser(string userName, string password)
+        public User LoginUser(string email, string password)
         {
-            return _dbContext.Users.Any(x => x.Email.Equals(userName, StringComparison.CurrentCultureIgnoreCase) && x.Password == password);
+            return _dbContext.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
         }
 
         public User FindByEmail(string email)
         {
-            return _dbContext.Users.FirstOrDefault(x => x.Email.Equals(email, StringComparison.CurrentCultureIgnoreCase));
-        } 
+            return _dbContext.Users.FirstOrDefault(x => x.Email == email);
+        }
 
         public User FindByRecoveryKey(string recoveryKey)
         {
             return _dbContext.Users.FirstOrDefault(x =>
-                x.RecoveryKey.Equals(recoveryKey, StringComparison.CurrentCultureIgnoreCase) &&
+                x.RecoveryKey == recoveryKey &&
                 x.RecoveryExpiration >= DateTime.Now
             );
         }

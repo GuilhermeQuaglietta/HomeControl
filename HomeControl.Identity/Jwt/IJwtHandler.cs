@@ -2,7 +2,7 @@
 {
     public interface IJwtHandler
     {
-        string GenerateToken(IJwtConfiguration configuration, string userName);
+        string GenerateToken(IJwtConfiguration configuration, int id, string name, string email);
         JwtValidationResult VerifyToken(IJwtConfiguration configuration, string token);
     }
 }

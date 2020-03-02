@@ -8,7 +8,7 @@ namespace HomeControl.Finances.Domain.Entity.ContractAggregate
     public class Contract : ITransactionHeaderWithItens<ContractItem>
     {
         public int Id { get; private set; }
-        public int OwnerId { get; private set; }
+        public int ownerId { get; private set; }
         public int? StoreId { get; private set; }
         public int? AccountId { get; private set; }
         public int? CardId { get; private set; }
@@ -65,10 +65,10 @@ namespace HomeControl.Finances.Domain.Entity.ContractAggregate
         }
         public Contract SetOwner(int id)
         {
-            if (OwnerId > 0)
-                throw new InvalidOperationException("Once set OwnerId can't be changed");
+            if (ownerId > 0)
+                throw new InvalidOperationException("Once set ownerId can't be changed");
 
-            OwnerId = id;
+            ownerId = id;
             return this;
         }
         public Contract SetStore(int storeId)

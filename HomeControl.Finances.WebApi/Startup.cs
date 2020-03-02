@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using HomeControl.AccessControl.WebApi.Infrastructure.Settings;
 using HomeControl.Finances.Infrastructure.Persistence.AccountData;
 using HomeControl.Finances.Infrastructure.Persistence.AccountData.Repository;
 using HomeControl.Finances.WebApi.Infrastructure.MapperProfiles;
@@ -8,110 +9,95 @@ using HomeControl.Finances.WebApi.v1.Message.AccountMessage;
 using HomeControl.Identity.Jwt;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 
 namespace HomeControl.Finances.WebApi
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            _configureMvc(services);
-            _configureConnections(services);
-            _configureUtilities(services);
-            _configureDependencyInjection(services);
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-        }
-
-        private void _configureMvc(IServiceCollection services)
-        {
-            services.AddCors(opt =>
+            services.AddControllers();
+            var mvcBuilder = services.AddMvc(options =>
             {
-                opt.AddPolicy("AllowAnyOrigin", builder => builder.AllowAnyOrigin());
-                opt.AddPolicy("AllowAnyMethod", builder => builder.AllowAnyHeader());
-                opt.AddPolicy("AllowAnyHeader", builder => builder.AllowAnyMethod());
+                options.EnableEndpointRouting = false;
             });
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddFluentValidation(options =>
-                {
-                    options.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-                });
+            _configureCors(services);
+            _configureThirdParty(services, mvcBuilder);
+            _configureApplication(services);
         }
 
-        private void _configureConnections(IServiceCollection services)
+        private void _configureCors(IServiceCollection services)
         {
+            CorsSettings corsSettings = Configuration.GetSection(CorsSettings.OptionsName).Get<CorsSettings>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(CorsSettings.PolicyName, builder =>
+                {
+                    builder.WithOrigins(corsSettings.AllowedOrigins);
+                    builder.WithMethods(corsSettings.AllowedMethods);
+                    builder.WithHeaders(corsSettings.AllowedHeaders);
+                });
+            });
+        }
+
+        private void _configureApplication(IServiceCollection services)
+        {
+            //Infrastructure
             services.AddDbContext<AccountDbContext>(
                 options =>
                 {
                     options.UseSqlServer(Configuration.GetConnectionString("HomeControl"));
                 });
-        }
-
-        private void _configureDependencyInjection(IServiceCollection services)
-        {
-            //Jwt
-            services.AddTransient<IJwtHandler, JwtSymmetricHandler>();
-            services.Configure<JwtConfiguration>(Configuration.GetSection("JwtConfiguration"));
-
-            //Infrastructure
             services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<IAccountTransactionRepository, AccountTransactionRepository>();
             services.AddTransient<IAccountTransferRepository, AccountTransferRepository>();
-
-            //WebApi - Validators
-            _configureValidators(services);
         }
 
-        private void _configureUtilities(IServiceCollection services)
+        private void _configureThirdParty(IServiceCollection services, IMvcBuilder builder)
         {
-            var config = new AutoMapper.MapperConfiguration(cfg =>
+            //Jwt
+            services.AddTransient<IJwtHandler, JwtHandler>();
+            services.Configure<IJwtConfiguration>(Configuration.GetSection("JwtConfiguration"));
+
+            //AutoMapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            // Fluent validations
+            builder.AddFluentValidation(options =>
             {
-                cfg.AddProfile(new AccountProfile());
+                options.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
             });
-            IMapper mapper = config.CreateMapper();
-            services.AddSingleton(mapper);
-            services.AddMvc();
-        }
 
-        private void _configureValidators(IServiceCollection services)
-        {
             services.AddTransient<AbstractValidator<AccountRequest>, AccountValidator>();
             services.AddTransient<AbstractValidator<AccountTransactionRequest>, AccountTransactionValidator>();
             services.AddTransient<AbstractValidator<AccountTransferRequest>, AccountTransferValidator>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
-            app.UseCors("AllowAnyOrigin");
-            app.UseCors("AllowAnyMethod");
-            app.UseCors("AllowAnyHeader");
 
             app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseCors(CorsSettings.PolicyName);
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
             app.UseMvc();
         }
     }

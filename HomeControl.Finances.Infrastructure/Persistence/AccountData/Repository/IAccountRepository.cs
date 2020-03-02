@@ -3,7 +3,7 @@ using HomeControl.Finances.Infrastructure.Persistence.AccountData.Entity;
 
 namespace HomeControl.Finances.Infrastructure.Persistence.AccountData.Repository
 {
-    public interface IAccountRepository : IRepository<AccountEntity>
+    public interface IAccountRepository : IEntityRepository<AccountEntity, AccountDbContext>
     {
     }
 }

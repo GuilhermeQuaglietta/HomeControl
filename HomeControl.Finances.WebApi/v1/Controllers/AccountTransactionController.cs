@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using HomeControl.Core.Infrastructure.Contract;
 using HomeControl.Finances.Infrastructure.Persistence.AccountData.Entity;
 using HomeControl.Finances.Infrastructure.Persistence.AccountData.Repository;
 using HomeControl.Finances.Util.ThirdParty.FluentValidation;
@@ -8,7 +7,6 @@ using HomeControl.Finances.WebApi.Infrastructure.Validators;
 using HomeControl.Finances.WebApi.v1.Message.AccountMessage;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Text;
 
 namespace HomeControl.Finances.WebApi.v1.Controllers
 {

@@ -8,6 +8,7 @@ namespace HomeControl.Finances.Infrastructure.Persistence.Contract
     {
         public int ContractId { get; set; }
         public int OwnerId { get; set; }
+
         public int? CompanyId { get; set; }
         public int? AccountId { get; set; }
         public int? CardId { get; set; }
@@ -27,9 +28,6 @@ namespace HomeControl.Finances.Infrastructure.Persistence.Contract
 
         public List<ContractItemEntity> Itens { get; set; }
 
-        public object GetId()
-        {
-            return ContractId;
-        }
+        public int Id => ContractId;
     }
 }

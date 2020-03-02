@@ -1,13 +1,10 @@
 ﻿using HomeControl.Core.Infrastructure.Contract;
-using HomeControl.Core.Validations;
 using System;
 
 namespace HomeControl.AccessControl.Domain.Users
 {
-    public class User : IEntity
+    public class User
     {
-        public object GetId() => UserId;
-
         public int UserId { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
