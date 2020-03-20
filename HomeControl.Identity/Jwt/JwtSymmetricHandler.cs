@@ -42,6 +42,12 @@ namespace HomeControl.Identity.Jwt
 
             return handler.WriteToken(securityToken);
         }
+
+        public string GenerateToken(IJwtConfiguration configuration, int id, string name, string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public JwtValidationResult VerifyToken(IJwtConfiguration configuration, string token)
         {
             var byteKey = Convert.FromBase64String(configuration.SecretKey);
@@ -60,11 +66,11 @@ namespace HomeControl.Identity.Jwt
             {
                 var claimsPrincipal = tokenHandler.ValidateToken(token, parameters, out var parsedToken);
                 var identity = new JwtIdentity(claimsPrincipal, token, parsedToken);
-                return new JwtValidationResult(identity);
+                return new JwtValidationResult(new JwtUser(identity.Claims, identity.Token, identity.SecurityToken));
             }
             catch (Exception e)
             {
-                return new JwtValidationResult(e.Message);
+                return new JwtValidationResult(JwtValidationResultCode.InvalidToken, e);
             }
         }
     }

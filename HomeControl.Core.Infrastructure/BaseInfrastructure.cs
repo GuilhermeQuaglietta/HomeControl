@@ -1,6 +1,4 @@
-﻿using HomeControl.Core.Infrastructure.Contract;
-
-namespace HomeControl.Core.Infrastructure.Implementation
+﻿namespace HomeControl.Core.Infrastructure
 {
     public class BaseInfrastructure : IBaseInfrastructure
     {

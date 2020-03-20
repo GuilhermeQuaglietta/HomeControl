@@ -7,9 +7,7 @@ using HomeControl.Identity.Jwt;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 
 namespace HomeControl.AccessControl.UnitTest.Controllers
 {

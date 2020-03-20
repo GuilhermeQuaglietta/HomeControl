@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 
-namespace HomeControl.Core.Infrastructure.Implementation
+namespace HomeControl.Core.Infrastructure.Repository
 {
     [Serializable]
     public class EntityDifferentOwnerException : Exception

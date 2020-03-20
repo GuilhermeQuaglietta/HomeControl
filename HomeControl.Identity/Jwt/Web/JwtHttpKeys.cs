@@ -1,4 +1,4 @@
-﻿namespace HomeControl.Identity.Web.Filters
+﻿namespace HomeControl.Identity.Jwt.Web
 {
     public class JwtHttpKeys
     {

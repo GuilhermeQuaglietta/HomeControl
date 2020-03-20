@@ -1,8 +1,4 @@
 ﻿using HomeControl.AccessControl.Domain.Users;
-using HomeControl.Identity.Jwt;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HomeControl.AccessControl.UnitTest.Seedwork
 {

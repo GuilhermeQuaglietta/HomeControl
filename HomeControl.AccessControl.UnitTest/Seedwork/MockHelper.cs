@@ -1,11 +1,7 @@
 ﻿using HomeControl.AccessControl.Domain.Users;
-using HomeControl.Core.Infrastructure.Contract;
-using HomeControl.Identity.Jwt;
-using Microsoft.Extensions.Options;
+using HomeControl.Core.Infrastructure.Repository;
 using Moq;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HomeControl.AccessControl.UnitTest.Seedwork
 {

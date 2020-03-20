@@ -1,4 +1,4 @@
-﻿using HomeControl.Core.Infrastructure.Contract;
+﻿using HomeControl.Core.Infrastructure.Repository;
 using HomeControl.Finances.Domain.SeedWork.Transaction;
 using System;
 

@@ -4,7 +4,6 @@ using FluentValidation.AspNetCore;
 using HomeControl.AccessControl.WebApi.Infrastructure.Settings;
 using HomeControl.Finances.Infrastructure.Persistence.AccountData;
 using HomeControl.Finances.Infrastructure.Persistence.AccountData.Repository;
-using HomeControl.Finances.WebApi.Infrastructure.MapperProfiles;
 using HomeControl.Finances.WebApi.v1.Message.AccountMessage;
 using HomeControl.Identity.Jwt;
 using Microsoft.AspNetCore.Builder;

@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using HomeControl.Finances.Infrastructure.Persistence.AccountData.Entity;
 using HomeControl.Finances.Infrastructure.Persistence.AccountData.Repository;
-using HomeControl.Finances.Util.ThirdParty.FluentValidation;
 using HomeControl.Finances.WebApi.Infrastructure.Filters;
-using HomeControl.Finances.WebApi.Infrastructure.Validators;
 using HomeControl.Finances.WebApi.v1.Infrastructure.Controllers;
 using HomeControl.Finances.WebApi.v1.Message.AccountMessage;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace HomeControl.Finances.WebApi.v1.Controllers
 {

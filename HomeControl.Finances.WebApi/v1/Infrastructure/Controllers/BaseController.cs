@@ -1,10 +1,8 @@
 ﻿using HomeControl.Identity.Jwt;
+using HomeControl.Identity.Jwt.Web;
 using HomeControl.Identity.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HomeControl.Finances.WebApi.v1.Infrastructure.Controllers
 {

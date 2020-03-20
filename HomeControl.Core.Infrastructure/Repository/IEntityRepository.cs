@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace HomeControl.Core.Infrastructure.Contract
+namespace HomeControl.Core.Infrastructure.Repository
 {
     public interface IEntityRepository<TEntity, TDbContext> : IRepository<TEntity> 
         where TEntity : class

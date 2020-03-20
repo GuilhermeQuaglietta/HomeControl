@@ -1,5 +1,4 @@
-﻿using HomeControl.Core.Infrastructure.Contract;
-using System;
+﻿using System;
 
 namespace HomeControl.AccessControl.Domain.Users
 {

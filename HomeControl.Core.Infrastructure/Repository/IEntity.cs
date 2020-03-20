@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HomeControl.Core.Infrastructure.Contract
+﻿namespace HomeControl.Core.Infrastructure.Repository
 {
     public interface IEntity
     {

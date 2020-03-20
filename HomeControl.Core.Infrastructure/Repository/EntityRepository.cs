@@ -1,11 +1,10 @@
-﻿using HomeControl.Core.Infrastructure.Contract;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace HomeControl.Core.Infrastructure.Implementation
+namespace HomeControl.Core.Infrastructure.Repository
 {
     public class EntityRepository<TEntity, TDbContext> : BaseRepository<TEntity>, IEntityRepository<TEntity, TDbContext>
         where TEntity : class, IEntity

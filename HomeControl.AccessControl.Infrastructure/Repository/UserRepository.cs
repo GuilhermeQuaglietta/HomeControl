@@ -1,6 +1,6 @@
 ﻿using HomeControl.AccessControl.Domain.Users;
 using HomeControl.AccessControl.Infrastructure.Seedwork;
-using HomeControl.Core.Infrastructure.Implementation;
+using HomeControl.Core.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

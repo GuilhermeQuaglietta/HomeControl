@@ -3,7 +3,6 @@ using HomeControl.AccessControl.Domain.Users;
 using HomeControl.AccessControl.WebApi.Requests.Login;
 using HomeControl.Identity.Jwt;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using System.Net;
 
 namespace HomeControl.AccessControl.WebApi.Controllers

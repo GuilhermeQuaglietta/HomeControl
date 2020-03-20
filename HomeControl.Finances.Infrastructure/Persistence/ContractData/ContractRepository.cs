@@ -1,4 +1,4 @@
-﻿using HomeControl.Core.Infrastructure.Implementation;
+﻿using HomeControl.Core.Infrastructure.Repository;
 
 namespace HomeControl.Finances.Infrastructure.Persistence.Contract
 {

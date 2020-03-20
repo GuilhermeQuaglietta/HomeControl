@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HomeControl.Core.Infrastructure.Contract
+namespace HomeControl.Core.Infrastructure.Repository
 {
     public interface IRepository<TEntity> : IBaseInfrastructure
         where TEntity : class

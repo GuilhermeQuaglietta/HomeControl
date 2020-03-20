@@ -1,4 +1,4 @@
-﻿using HomeControl.Core.Infrastructure.Contract;
+﻿using HomeControl.Core.Infrastructure.Repository;
 using System;
 using System.Collections.Generic;
 

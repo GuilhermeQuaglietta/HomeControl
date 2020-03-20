@@ -1,4 +1,4 @@
-﻿namespace HomeControl.Core.Infrastructure.Contract
+﻿namespace HomeControl.Core.Infrastructure
 {
     public interface IBaseInfrastructure
     {

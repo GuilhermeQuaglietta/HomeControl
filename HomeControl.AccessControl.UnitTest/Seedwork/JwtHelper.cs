@@ -1,8 +1,5 @@
 ﻿using HomeControl.Identity.Jwt;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HomeControl.AccessControl.UnitTest.Seedwork
 {

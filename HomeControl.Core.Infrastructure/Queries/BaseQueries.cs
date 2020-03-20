@@ -1,6 +1,4 @@
-﻿using HomeControl.Core.Infrastructure.Contract;
-
-namespace HomeControl.Core.Infrastructure.Implementation
+﻿namespace HomeControl.Core.Infrastructure.Queries
 {
     public class BaseQueries : BaseInfrastructure, IQueries
     {
