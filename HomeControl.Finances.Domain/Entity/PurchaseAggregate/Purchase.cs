@@ -38,6 +38,7 @@ namespace HomeControl.Finances.Domain.Entity.PurchaseAggregate
         }
         public Purchase(int id, DateTime date, int storeId, int accountId)
         {
+            SetId(id);
             SetDate(date);
             SetStore(storeId);
             SetAccount(accountId);
@@ -102,7 +103,7 @@ namespace HomeControl.Finances.Domain.Entity.PurchaseAggregate
         {
             get
             {
-                var total = _itens.Sum(x => x.TransactionType == TransactionType.Credit ? x.TotalValue : -x.TotalValue);
+                var total = _itens.Sum(x => x.GetTransactionType() == TransactionType.Credit ? x.TotalValue : -x.TotalValue);
                 return total > 0 ? TransactionType.Credit : TransactionType.Debit;
             }
         }

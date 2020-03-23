@@ -1,6 +1,6 @@
 ﻿namespace HomeControl.Identity.UnitTest.Seedwork
 {
-    public class TestConstants
+    public static class TestConstants
     {
         public const string ValidEmail = "guilherme.quaglietta@gmail.com";
         public const string ValidUserName = "guilherme";

@@ -48,8 +48,7 @@ namespace HomeControl.AccessControl.WebApi.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
-        public IActionResult Put(int id, [FromBody]UserPutRequest request)
+        public IActionResult Put([FromBody]UserPutRequest request)
         {
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);

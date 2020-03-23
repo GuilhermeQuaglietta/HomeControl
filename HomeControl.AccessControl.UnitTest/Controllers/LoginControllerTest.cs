@@ -169,7 +169,7 @@ namespace HomeControl.AccessControl.UnitTest.Controllers
             var testUser = EntityHelper.GenerateUser();
             return GenerateController(testUser);
         }
-        private LoginController GenerateController(User queriesUser)
+        private static LoginController GenerateController(User queriesUser)
         {
             var testUser = EntityHelper.GenerateUser();
             IUserQueries queries = MockHelper.GenerateIUserQueries(queriesUser);

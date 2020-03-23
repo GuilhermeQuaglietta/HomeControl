@@ -30,7 +30,7 @@ namespace HomeControl.Finances.Domain.Entity.ContractAggregate
         }
         public ContractTransactionItem SetTotalValue(decimal value, TransactionType transactionType)
         {
-            if (value < 0) throw new ArgumentException("Value must be 0 or a positive number", "value");
+            if (value < 0) throw new ArgumentException("Value must be 0 or a positive number", nameof(value));
             TotalValue = value;
             TransactionType = transactionType;
             return this;

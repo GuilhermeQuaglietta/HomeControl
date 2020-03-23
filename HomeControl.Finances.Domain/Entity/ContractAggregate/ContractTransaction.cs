@@ -39,7 +39,7 @@ namespace HomeControl.Finances.Domain.Entity.ContractAggregate
         public void AddItensList(IEnumerable<ContractTransactionItem> purchaseItens)
         {
             if (purchaseItens == null)
-                throw new ArgumentNullException("purchaseItens", "Item can't be null");
+                throw new ArgumentNullException(nameof(purchaseItens));
 
             _itens = purchaseItens.ToList();
             _itens.ForEach(x => BindItem(ref x));
@@ -48,7 +48,7 @@ namespace HomeControl.Finances.Domain.Entity.ContractAggregate
         public void AddItem(ContractTransactionItem item)
         {
             if (item == null)
-                throw new ArgumentNullException("item", "Item can't be null");
+                throw new ArgumentNullException(nameof(item));
 
             BindItem(ref item);
             _itens.Add(item);
@@ -63,7 +63,7 @@ namespace HomeControl.Finances.Domain.Entity.ContractAggregate
         public void UpdateItem(int index, ContractTransactionItem item)
         {
             if (item == null)
-                throw new ArgumentNullException("item", "Item can't be null");
+                throw new ArgumentNullException(nameof(item));
 
             BindItem(ref item);
             var oldItem = _itens[index];

@@ -31,12 +31,12 @@ namespace HomeControl.Finances.WebApi
             {
                 options.EnableEndpointRouting = false;
             });
-            _configureCors(services);
-            _configureThirdParty(services, mvcBuilder);
-            _configureApplication(services);
+            ConfigureCors(services);
+            ConfigureThirdParty(services, mvcBuilder);
+            ConfigureApplication(services);
         }
 
-        private void _configureCors(IServiceCollection services)
+        private void ConfigureCors(IServiceCollection services)
         {
             CorsSettings corsSettings = Configuration.GetSection(CorsSettings.OptionsName).Get<CorsSettings>();
             services.AddCors(options =>
@@ -50,7 +50,7 @@ namespace HomeControl.Finances.WebApi
             });
         }
 
-        private void _configureApplication(IServiceCollection services)
+        private void ConfigureApplication(IServiceCollection services)
         {
             //Infrastructure
             services.AddDbContext<AccountDbContext>(
@@ -63,7 +63,7 @@ namespace HomeControl.Finances.WebApi
             services.AddTransient<IAccountTransferRepository, AccountTransferRepository>();
         }
 
-        private void _configureThirdParty(IServiceCollection services, IMvcBuilder builder)
+        private void ConfigureThirdParty(IServiceCollection services, IMvcBuilder builder)
         {
             //Jwt
             services.AddTransient<IJwtHandler, JwtHandler>();
@@ -83,7 +83,7 @@ namespace HomeControl.Finances.WebApi
             services.AddTransient<AbstractValidator<AccountTransferRequest>, AccountTransferValidator>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

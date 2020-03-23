@@ -14,7 +14,7 @@ namespace HomeControl.Identity.UnitTest.Jwt
         [TestInitialize]
         public void OnTestBegin()
         {
-            _configuration = _generateConfiguration();
+            _configuration = GenerateConfiguration();
             _handler = new JwtHandler();
         }
 
@@ -57,7 +57,7 @@ namespace HomeControl.Identity.UnitTest.Jwt
             AssertValidationResultIsInvalid(validationResult, JwtValidationResultCode.InvalidToken, typeof(Exception));
         }
 
-        private JwtConfiguration _generateConfiguration()
+        private JwtConfiguration GenerateConfiguration()
         {
             return new JwtConfiguration()
             {
@@ -68,14 +68,14 @@ namespace HomeControl.Identity.UnitTest.Jwt
             };
         }
 
-        public void AssertValidationResultIsValid(JwtValidationResult result)
+        public static void AssertValidationResultIsValid(JwtValidationResult result)
         {
             Assert.IsTrue(result.IsValid);
             Assert.IsNotNull(result.Identity);
             Assert.AreEqual(JwtValidationResultCode.Ok, result.ValidationResultCode);
             Assert.IsNull(result.Exception);
         }
-        public void AssertValidationResultIsInvalid(JwtValidationResult result, JwtValidationResultCode code, Type expectedException)
+        public static void AssertValidationResultIsInvalid(JwtValidationResult result, JwtValidationResultCode code, Type expectedException)
         {
             Assert.IsFalse(result.IsValid);
             Assert.IsNull(result.Identity);

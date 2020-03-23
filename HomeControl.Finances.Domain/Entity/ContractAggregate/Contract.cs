@@ -8,7 +8,7 @@ namespace HomeControl.Finances.Domain.Entity.ContractAggregate
     public class Contract : ITransactionHeaderWithItens<ContractItem>
     {
         public int Id { get; private set; }
-        public int ownerId { get; private set; }
+        public int OwnerId { get; private set; }
         public int? StoreId { get; private set; }
         public int? AccountId { get; private set; }
         public int? CardId { get; private set; }
@@ -65,10 +65,10 @@ namespace HomeControl.Finances.Domain.Entity.ContractAggregate
         }
         public Contract SetOwner(int id)
         {
-            if (ownerId > 0)
+            if (OwnerId > 0)
                 throw new InvalidOperationException("Once set ownerId can't be changed");
 
-            ownerId = id;
+            OwnerId = id;
             return this;
         }
         public Contract SetStore(int storeId)
@@ -129,7 +129,7 @@ namespace HomeControl.Finances.Domain.Entity.ContractAggregate
         public void AddItensList(IEnumerable<ContractItem> purchaseItens)
         {
             if (purchaseItens == null)
-                throw new ArgumentNullException("purchaseItens", "Item can't be null");
+                throw new ArgumentNullException(nameof(purchaseItens));
 
             _itens = purchaseItens.ToList();
             _itens.ForEach(x => BindItem(ref x));
@@ -138,7 +138,7 @@ namespace HomeControl.Finances.Domain.Entity.ContractAggregate
         public void AddItem(ContractItem item)
         {
             if (item == null)
-                throw new ArgumentNullException("item", "Item can't be null");
+                throw new ArgumentNullException(nameof(item));
 
             BindItem(ref item);
             _itens.Add(item);
@@ -153,7 +153,7 @@ namespace HomeControl.Finances.Domain.Entity.ContractAggregate
         public void UpdateItem(int index, ContractItem item)
         {
             if (item == null)
-                throw new ArgumentNullException("item", "Item can't be null");
+                throw new ArgumentNullException(nameof(item));
 
             BindItem(ref item);
             var oldItem = _itens[index];

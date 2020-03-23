@@ -14,7 +14,7 @@ namespace HomeControl.Identity.Jwt
 
         }
 
-        public string GenerateToken(IJwtConfiguration configuration, string userName)
+        public static string GenerateToken(IJwtConfiguration configuration, string userName)
         {
             byte[] byteKey = Convert.FromBase64String(configuration.SecretKey);
             SigningCredentials credentials = new SigningCredentials(new SymmetricSecurityKey(byteKey), SecurityAlgorithms.HmacSha256Signature);
@@ -68,7 +68,7 @@ namespace HomeControl.Identity.Jwt
                 var identity = new JwtIdentity(claimsPrincipal, token, parsedToken);
                 return new JwtValidationResult(new JwtUser(identity.Claims, identity.Token, identity.SecurityToken));
             }
-            catch (Exception e)
+            catch (SecurityTokenException e)
             {
                 return new JwtValidationResult(JwtValidationResultCode.InvalidToken, e);
             }

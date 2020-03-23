@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace HomeControl.Identity.Web.Filters
 {
+
     public class JwtAuthorizeFilterAttribute : ActionFilterAttribute
     {
         private string _headerName;

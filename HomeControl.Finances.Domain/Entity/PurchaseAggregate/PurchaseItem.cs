@@ -25,7 +25,10 @@ namespace HomeControl.Finances.Domain.Entity.PurchaseAggregate
             }
         }
 
-        public TransactionType TransactionType => TransactionType.Debit;
+        public TransactionType GetTransactionType()
+        {
+            return TransactionType.Debit;
+        }
 
         public PurchaseItem()
         {

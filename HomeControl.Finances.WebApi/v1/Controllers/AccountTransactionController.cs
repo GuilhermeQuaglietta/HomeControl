@@ -21,9 +21,9 @@ namespace HomeControl.Finances.WebApi.v1.Controllers
 
         public AccountTransactionController(IValidator<AccountTransactionRequest> validator, IAccountTransactionRepository repository, IMapper mapper)
         {
-            Validator = validator ?? throw new ArgumentNullException("validator", "Validator can't be null");
-            Repository = repository ?? throw new ArgumentNullException("repository", "Repository can't be null");
-            Mapper = mapper ?? throw new ArgumentNullException("mapper", "Mapper can't be null");
+            Validator = validator ?? throw new ArgumentNullException(nameof(validator));
+            Repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
@@ -39,8 +39,8 @@ namespace HomeControl.Finances.WebApi.v1.Controllers
             if (request == null)
                 return BadRequest("Invalid request");
 
-            if (!ValidateRequest(request, PersistenceValidationTypes.Create))
-                return BadRequest(ValidationMessage);
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
 
             AccountTransactionEntity entity = Mapper.Map<AccountTransactionEntity>(request);
 
@@ -54,8 +54,8 @@ namespace HomeControl.Finances.WebApi.v1.Controllers
             if (request == null)
                 return BadRequest("Invalid request");
 
-            if (!ValidateRequest(request, PersistenceValidationTypes.Update))
-                return BadRequest(ValidationMessage);
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
 
             AccountTransactionEntity entity = Mapper.Map<AccountTransactionEntity>(request);
 
@@ -70,17 +70,5 @@ namespace HomeControl.Finances.WebApi.v1.Controllers
             return NoContent();
         }
 
-        protected bool ValidateRequest(AccountTransactionRequest entity, string validationType)
-        {
-            if (entity == null)
-                throw new ArgumentNullException("entity", "Entity can't be null");
-
-            var validationResult = Validator.Validate(entity);
-
-            if (!validationResult.IsValid)
-                ValidationMessage = validationResult.GetErrorMessages();
-
-            return validationResult.IsValid;
-        }
     }
 }

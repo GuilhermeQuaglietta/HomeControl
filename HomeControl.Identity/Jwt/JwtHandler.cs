@@ -80,10 +80,6 @@ namespace HomeControl.Identity.Jwt
             {
                 return new JwtValidationResult(JwtValidationResultCode.InvalidToken, e);
             }
-            catch (Exception e)
-            {
-                return new JwtValidationResult(e);
-            }
         }
 
         private void ValidateConfiguration(IJwtConfiguration configuration)

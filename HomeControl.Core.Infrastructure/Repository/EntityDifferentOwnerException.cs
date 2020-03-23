@@ -19,5 +19,9 @@ namespace HomeControl.Core.Infrastructure.Repository
             : base(info, context)
         {
         }
+
+        public EntityDifferentOwnerException()
+        {
+        }
     }
 }

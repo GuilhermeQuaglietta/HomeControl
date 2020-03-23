@@ -22,13 +22,13 @@ namespace HomeControl.Finances.Domain.Entity.ContractAggregate
 
         public ContractItem SetTotalValue(decimal value)
         {
-            if (value < 0) throw new ArgumentException("Value must be 0 or a positive number", "value");
+            if (value < 0) throw new ArgumentException("Value must be 0 or a positive number", nameof(value));
             TotalValue = value;
             return this;
         }
         public ContractItem SetTotalValue(decimal value, TransactionType transactionType)
         {
-            if (value < 0) throw new ArgumentException("Value must be 0 or a positive number", "value");
+            if (value < 0) throw new ArgumentException("Value must be 0 or a positive number", nameof(value));
             TotalValue = value;
             TransactionType = transactionType;
             return this;
