@@ -5,16 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="9.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <Compile Remove="Proxy\**" />
+    <Compile Remove="Queries\**" />
+    <Compile Remove="Reports\**" />
+    <EmbeddedResource Remove="Proxy\**" />
+    <EmbeddedResource Remove="Queries\**" />
+    <EmbeddedResource Remove="Reports\**" />
+    <None Remove="Proxy\**" />
+    <None Remove="Queries\**" />
+    <None Remove="Reports\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Proxy\" />
-    <Folder Include="Reports\" />
-    <Folder Include="Queries\" />
-    <Folder Include="Seedwork\" />
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
   </ItemGroup>
 
   <ItemGroup>

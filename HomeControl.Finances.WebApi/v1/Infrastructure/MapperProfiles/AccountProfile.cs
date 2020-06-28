@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HomeControl.Finances.Domain.Entity.AccountAggregate;
 using HomeControl.Finances.Infrastructure.Persistence.AccountData.Entity;
+using HomeControl.Finances.WebApi.v1.Message.AccountMessage;
 
 namespace HomeControl.Finances.WebApi.Infrastructure.MapperProfiles
 {
@@ -11,6 +12,8 @@ namespace HomeControl.Finances.WebApi.Infrastructure.MapperProfiles
             CreateMap<Account, AccountEntity>().ReverseMap();
             CreateMap<AccountTransaction, AccountTransactionEntity>().ReverseMap();
             CreateMap<AccountTransfer, AccountTransferEntity>().ReverseMap();
+
+            CreateMap<AccountTypeEntity, AccountTypeRequest>().ReverseMap();
         }
     }
 }

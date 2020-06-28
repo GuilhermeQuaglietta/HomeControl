@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace HomeControl.Finances.WebApi.v1.Controllers
 {
     [ApiController]
-    [Route("api/v1/Account")]
+    [Route("api/v1/AccountType")]
     [FinancesAuthorizeFilter]
-    public class AccountController : BaseController
+    public class AccountTypeController : BaseController
     {
-        protected readonly IAccountRepository Repository;
+        protected readonly IAccountTypeRepository Repository;
         protected readonly IMapper Mapper;
 
-        public AccountController(IAccountRepository repository, IMapper mapper)
+        public AccountTypeController(IAccountTypeRepository repository, IMapper mapper)
         {
             Repository = repository;
             Mapper = mapper;
@@ -28,7 +28,6 @@ namespace HomeControl.Finances.WebApi.v1.Controllers
             var user = GetUser();
             var entity = Repository.GetAll(user.Id);
             return Ok(entity);
-
         }
 
         [HttpGet]
@@ -41,26 +40,21 @@ namespace HomeControl.Finances.WebApi.v1.Controllers
         }
 
         [HttpPost]
-        public virtual ActionResult Post(AccountRequest request)
+        public virtual ActionResult Post(AccountTypeRequest request)
         {
-            if(!ModelState.IsValid)
-                return UnprocessableEntity(ModelState);
-
-            AccountEntity entity = Mapper.Map<AccountEntity>(request);
-
             var user = GetUser();
-            if(entity.OwnerId != entity.OwnerId)    
+            request.OwnerId = user.Id;
+
+            AccountTypeEntity entity = Mapper.Map<AccountTypeEntity>(request);
             Repository.Insert(entity, user.Id);
             return Ok(entity);
         }
 
         [HttpPut]
-        public virtual ActionResult Put(AccountRequest request)
+        public virtual ActionResult Put(AccountTypeRequest request)
         {
-            if (!ModelState.IsValid)
-                return UnprocessableEntity(ModelState);
 
-            AccountEntity entity = Mapper.Map<AccountEntity>(request);
+            AccountTypeEntity entity = Mapper.Map<AccountTypeEntity>(request);
 
             Repository.Update(entity);
             return NoContent();

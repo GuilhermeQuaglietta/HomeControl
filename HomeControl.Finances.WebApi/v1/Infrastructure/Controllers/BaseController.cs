@@ -8,8 +8,6 @@ namespace HomeControl.Finances.WebApi.v1.Infrastructure.Controllers
 {
     public class BaseController : Controller
     {
-
-
         public JwtUser GetUser()
         {
             if (!HttpContext.Items.ContainsKey(JwtHttpKeys.JwtUserItem))

@@ -21,9 +21,10 @@ namespace HomeControl.Finances.Infrastructure.Persistence.AccountData
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AccountConfiguration());
+            modelBuilder.ApplyConfiguration(new AccountTypeConfiguration());
+
             modelBuilder.ApplyConfiguration(new AccountTransactionConfiguration());
             modelBuilder.ApplyConfiguration(new AccountTransferConfiguration());
-
         }
     }
 }

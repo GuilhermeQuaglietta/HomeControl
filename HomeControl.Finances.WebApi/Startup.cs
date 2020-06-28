@@ -59,6 +59,7 @@ namespace HomeControl.Finances.WebApi
                     options.UseSqlServer(Configuration.GetConnectionString("HomeControl"));
                 });
             services.AddTransient<IAccountRepository, AccountRepository>();
+            services.AddTransient<IAccountTypeRepository, AccountTypeRepository>();
             services.AddTransient<IAccountTransactionRepository, AccountTransactionRepository>();
             services.AddTransient<IAccountTransferRepository, AccountTransferRepository>();
         }
@@ -67,7 +68,7 @@ namespace HomeControl.Finances.WebApi
         {
             //Jwt
             services.AddTransient<IJwtHandler, JwtHandler>();
-            services.Configure<IJwtConfiguration>(Configuration.GetSection("JwtConfiguration"));
+            services.AddSingleton<IJwtConfiguration>(Configuration.GetSection("JwtConfiguration").Get<JwtConfiguration>());
 
             //AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -78,9 +79,9 @@ namespace HomeControl.Finances.WebApi
                 options.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
             });
 
-            services.AddTransient<AbstractValidator<AccountRequest>, AccountValidator>();
-            services.AddTransient<AbstractValidator<AccountTransactionRequest>, AccountTransactionValidator>();
-            services.AddTransient<AbstractValidator<AccountTransferRequest>, AccountTransferValidator>();
+            services.AddTransient<IValidator<AccountRequest>, AccountValidator>();
+            services.AddTransient<IValidator<AccountTransactionRequest>, AccountTransactionValidator>();
+            services.AddTransient<IValidator<AccountTransferRequest>, AccountTransferValidator>();
         }
 
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
